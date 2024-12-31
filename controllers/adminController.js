@@ -17,7 +17,14 @@ const login = async (req, res) => {
         }
         const user = await Admin.findOne({email})
         if(!user){
-          return res.status(400).json({success: false, message: `Kindly contact admins to create an account`})}
+          return res.status(400).json({success: false, message: `Kindly contact admins to create an account`})
+        }
+        if (user.password !== password) {
+          return res.status(401).json({
+              success: false, 
+              message: `Invalid email or password`
+          });
+      }
         else{
             res.status(200).json({
               success: true,

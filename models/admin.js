@@ -18,7 +18,6 @@ const adminSchema = new Schema({
   },
 })
 
-
 const Admins = mongoose.model('admins', adminSchema);
 
 module.exports = Admins;
