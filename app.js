@@ -5,10 +5,15 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 
 const adminRoutes = require("./routes/admin");
+const parentRoutes = require("./routes/parents");
+const childRoutes = require("./routes/children");
 app.use(cors());
 app.use(express.json());
 
 app.use("/", adminRoutes);
+app.use("/manage-parents", parentRoutes);
+app.use("/manage-child", childRoutes);
+
 
 mongoose
   .connect(process.env.MONGO_URI, {
