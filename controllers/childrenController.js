@@ -1,9 +1,9 @@
 const Child = require("../models/children");
 
-
 const getChildren = async (req, res) => {
     try {
-        const children = await Child.find();
+        const children = await Child.find()
+        console.log(children);
         res.status(200).json({ success: true, data: children });
     } catch (err) {
         res.status(400).json({ message: err, success: false });
