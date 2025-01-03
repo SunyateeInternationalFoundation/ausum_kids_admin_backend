@@ -70,15 +70,14 @@ const updateProfile = async (req, res) => {
 const addAdmin = async (req, res) => {
   try {
     const { email, password, isSuperAdmin } = req.body;
-    const admin = new Admin({
+    const admin = await Admin.create({
       email,
       password,
       isSuperAdmin,
-    });
-    const savedAdmin = await admin.save();
+    })
     res.status(200).json({
       success: true,
-      data: savedAdmin,
+      data: admin,
       message: `Admin added successfully`,
     });
   } catch (err) {
