@@ -66,7 +66,29 @@ const updateProfile = async (req, res) => {
     res.status(400).json({ message: err, success: false });
   }
 };
+
+const addAdmin = async (req, res) => {
+  try {
+    const { email, password, isSuperAdmin } = req.body;
+    const admin = new Admin({
+      email,
+      password,
+      isSuperAdmin,
+    });
+    const savedAdmin = await admin.save();
+    res.status(200).json({
+      success: true,
+      data: savedAdmin,
+      message: `Admin added successfully`,
+    });
+  } catch (err) {
+    res.status(400).json({ message: err, success: false });
+  }
+
+}
+
 module.exports = {
   login,
   updateProfile,
+  addAdmin
 };
