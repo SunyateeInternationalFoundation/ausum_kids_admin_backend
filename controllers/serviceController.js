@@ -28,20 +28,22 @@ const getServices = async (req, res) => {
 
 const updateService = async (req, res) => {
     try {
-        const updatedService  = await Service.updateOne(
-            { _id: req.params.id },
-            {
-                $set: {
-                    name: req.body.name,
-                    about: req.body.about,
-                    price: req.body.price,
-                    sessions: req.body.sessions
-                }
-            }
-        );  
+        const { id } = req.params;
+        const { name, about, price, sessions } = req.body;
+
+        const updatedService = await Service.findByIdAndUpdate(
+            id,
+            { name, about, price, sessions },
+            { new: true, runValidators: true }
+        );
+
+        if (!updatedService) {
+            return res.status(404).json({ success: false, message: 'Service not found' });
+        }
+
         res.status(200).json({ success: true, data: updatedService });
     } catch (err) {
-        res.status(400).json({ message: err, success: false });
+        res.status(400).json({ success: false, message: err.message });
     }
 }
 
