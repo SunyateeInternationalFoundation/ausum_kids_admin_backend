@@ -26,9 +26,37 @@ const getServices = async (req, res) => {
     }
 }
 
+const updateService = async (req, res) => {
+    try {
+        const updatedService  = await Service.updateOne(
+            { _id: req.params.id },
+            {
+                $set: {
+                    name: req.body.name,
+                    about: req.body.about,
+                    price: req.body.price,
+                    sessions: req.body.sessions
+                }
+            }
+        );  
+        res.status(200).json({ success: true, data: updatedService });
+    } catch (err) {
+        res.status(400).json({ message: err, success: false });
+    }
+}
 
+const deleteService = async (req, res) => {
+    try {
+        const deletedService = await Service.findByIdAndDelete(req.params.id);
+        res.status(200).json({ success: true, data: deletedService });
+    } catch (err) {
+        res.status(400).json({ message: err, success: false });
+    }
+}
 
 module.exports = {
     getServices,
-    addService
+    addService,
+    updateService,
+    deleteService
 }
