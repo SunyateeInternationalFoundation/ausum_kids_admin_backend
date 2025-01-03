@@ -74,7 +74,7 @@ const addAdmin = async (req, res) => {
       email,
       password,
       isSuperAdmin,
-    })
+    });
     res.status(200).json({
       success: true,
       data: admin,
@@ -83,11 +83,18 @@ const addAdmin = async (req, res) => {
   } catch (err) {
     res.status(400).json({ message: err, success: false });
   }
-
-}
-
+};
+const getAdmins = async (req, res) => {
+  try {
+    const admins = await Admin.find();
+    res.status(200).json({ success: true, data: admins });
+  } catch (err) {
+    res.status(400).json({ message: err, success: false });
+  }
+};
 module.exports = {
   login,
   updateProfile,
-  addAdmin
+  addAdmin,
+  getAdmins,
 };
