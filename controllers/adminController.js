@@ -19,12 +19,10 @@ const login = async (req, res) => {
     }
     const user = await Admin.findOne({ email });
     if (!user) {
-      return res
-        .status(400)
-        .json({
-          success: false,
-          message: `Kindly contact admins to create an account`,
-        });
+      return res.status(400).json({
+        success: false,
+        message: `Kindly contact admins to create an account`,
+      });
     }
     if (user.password !== password) {
       return res.status(401).json({
@@ -43,6 +41,32 @@ const login = async (req, res) => {
   }
 };
 
+const updateProfile = async (req, res) => {
+  try {
+    const { firstName, lastName, email } = req.body;
+    const admin = await Admin.findOne({ email });
+    console.log("admin", admin);
+    if (!admin) {
+      return res.status(400).json({
+        success: false,
+        message: `Admin not found`,
+      });
+    }
+    const updatedAdmin = await Admin.updateOne(
+      { _id: admin._id },
+      { firstName, lastName }
+    );
+
+    res.status(200).json({
+      data: updatedAdmin,
+      success: true,
+      message: `Admin profile updated successfully`,
+    });
+  } catch (err) {
+    res.status(400).json({ message: err, success: false });
+  }
+};
 module.exports = {
   login,
+  updateProfile,
 };
