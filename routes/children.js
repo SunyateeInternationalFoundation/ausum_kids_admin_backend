@@ -4,6 +4,9 @@ const childrenController = require('../controllers/childrenController')
 
 
 router.get('/', childrenController.getChildren)
+router.post('/', childrenController.addChild)
+router.put('/:id', childrenController.updateChild)
 router.get('/:id', childrenController.getChild) 
+router.delete('/:id', childrenController.deleteChild)
 
 module.exports = router;
