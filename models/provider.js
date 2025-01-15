@@ -8,6 +8,7 @@ const providerSchema = new mongoose.Schema({
     address: { type: String, required: true },
     city: { type: String, required: true },
     pincode: { type: String, required: true },
+    services: [{ type: mongoose.Schema.Types.ObjectId, ref: 'services' }],
 }); 
 
 const Provider = mongoose.model("providers", providerSchema);
