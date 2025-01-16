@@ -79,11 +79,11 @@ const updateParent = async (req, res) => {
 const updateVerify = async (req, res) => {
   try {
     const { id } = req.params;
-    const { verified } = req.body;
+    // const { verified } = req.body;
 
     const updatedParent = await Parents.findByIdAndUpdate(
       id,
-      { verified },
+      { verified: true },
       { new: true, runValidators: true }
     );
     if (!updatedParent) {
