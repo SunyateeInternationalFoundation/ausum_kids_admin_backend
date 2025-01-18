@@ -1,5 +1,6 @@
 const Parents = require("../models/parents");
-
+const Children = require("../models/children");
+const { ObjectId } = require("mongoose").Types;
 const getParents = async (req, res) => {
   const { page = 1, limit = 10 } = req.query;
 
@@ -30,7 +31,10 @@ const getParents = async (req, res) => {
 const getParent = async (req, res) => {
   try {
     const parent = await Parents.findById(req.params.id);
-    res.status(200).json({ success: true, data: parent });
+    console.log("parent", parent);
+    const child = await Children.find({ parentId: parent._id });
+    console.log("child", child);
+    res.status(200).json({ success: true, data: parent, child });
   } catch (err) {
     res.status(400).json({ message: err, success: false });
   }
