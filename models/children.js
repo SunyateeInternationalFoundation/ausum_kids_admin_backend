@@ -67,6 +67,6 @@ const childrenSchema = new mongoose.Schema({
   },
 });
 
-const Children = mongoose.model("children", childrenSchema);
+const Children = mongoose.model("childrens", childrenSchema);
 
 module.exports = Children;
