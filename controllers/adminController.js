@@ -4,15 +4,27 @@ const dotenv = require("dotenv");
 const Admin = require("../models/admin");
 dotenv.config();
 
-function isStringInvalid(string) {
-  return string === undefined || string.length === 0;
-}
+const isStringInvalid = (str, type = "string") => {
+  if (!str || typeof str !== "string" || str.trim().length === 0) return true;
+
+  if (type === "email") {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email validation
+    return !emailRegex.test(str.trim());
+  }
+
+  if (type === "phone") {
+    const phoneRegex = /^\+?[1-9]\d{1,14}$/; // E.164 international phone format
+    return !phoneRegex.test(str.trim());
+  }
+
+  return false; // Valid string
+};
 
 const login = async (req, res) => {
   try {
     const { email, password } = req.body;
     console.log(`email: ${email} password: ${password}`);
-    if (isStringInvalid(email) || isStringInvalid(password)) {
+    if (isStringInvalid(email, "email") || isStringInvalid(password)) {
       return res
         .status(400)
         .json({ success: false, message: `Email and password is missing` });
