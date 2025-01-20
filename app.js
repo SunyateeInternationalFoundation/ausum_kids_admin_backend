@@ -13,11 +13,11 @@ const providerRoutes = require("./routes/provider");
 app.use(cors());
 app.use(express.json());
 
-app.use("/", adminRoutes);
 app.use("/manage-parents", parentRoutes);
 app.use("/manage-child", childRoutes);
 app.use("/manage-services", serviceRoutes);
 app.use("/manage-providers", providerRoutes);
+app.use("/", adminRoutes);
 
 mongoose
   .connect(process.env.MONGO_URI, {
@@ -26,6 +26,6 @@ mongoose
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("Database connection error:", err));
 
-app.listen(5001, () => {
+app.listen(5002, () => {
   console.log("Server is running on http://localhost:5000");
 });
