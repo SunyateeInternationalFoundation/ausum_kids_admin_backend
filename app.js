@@ -26,6 +26,6 @@ mongoose
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("Database connection error:", err));
 
-app.listen(5000, () => {
-  console.log("Server is running on http://localhost:5000");
+app.listen(5002, () => {
+  console.log("Server is running on http://localhost:5002");
 });
